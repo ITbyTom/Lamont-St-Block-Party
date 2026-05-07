@@ -250,6 +250,7 @@
     
     <div id="WhosBringingWhat">
         <h2>Who's Bringing What? <a href="#RSVP" class="btn-signup-sm">SIGN UP NOW</a></h2>
+        <p>***If you need to change/update the form, please fill it out again and add "UPDATE" before your Name***</p>
         <div id="potluck-list-container">
             <p>Gathering the list from the neighborhood...</p>
         </div>
@@ -257,7 +258,7 @@
 
     <div id="RSVP" class="form-section">
         <h2>RSVP</h2>
-        <p>Check the list above first to see what we might still need! <a href="#WhosBringingWhat" class="btn-signup-sm">SEE WHO'S BRINGING WHAT</a></p>
+        <p>Check the list above first to see what we might still need! <a href="#WhosBringingWhat" class="btn-signup-sm">SEE WHO'S BRINGING WHAT</a><br /><br />***If you need to change/update the form, please fill it out again and add "UPDATE" before your Name***</p>
         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScEvLf9KLkprHbCuRazjKPwx2xAo3iluoeNJQI-jtxGwejcwA/viewform?embedded=true" width="100%" height="1000" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
 </div>
@@ -276,7 +277,7 @@
     async function loadPotluckData() {
         try {
             // Fetches your JSON file from the data folder in your repo
-            const response = await fetch('data/potluck.json');
+            const response = await fetch('data/potluck.json?t=' + new Date().getTime());
             if (!response.ok) throw new Error('Network response was not ok');
             
             const potluckList = await response.json();
