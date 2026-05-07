@@ -217,6 +217,28 @@
             .container { margin: 0 auto; border-radius: 0; padding: 25px; }
             .btn-signup { width: 100%; text-align: center; box-sizing: border-box; }
         }
+        .refresh-icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            color: #888;
+            transition: color 0.2s ease;
+        }
+
+        .refresh-icon:hover {
+            color: var(--primary-blue);
+        }
+
+        /* The spinning class we'll toggle with JS */
+        .spinning {
+            animation: rotate 0.8s linear infinite;
+            color: var(--primary-blue);
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -240,7 +262,7 @@
         <li><strong>RSVP:</strong> Use the form below to let us know you’re coming!</li>
     </ul>
 
-    <a href="#WhosBringingWhat" class="btn-signup">SEE WHO'S BRINGING WHAT</a><a href="#RSVP" class="btn-signup">SIGN UP NOW</a>
+    <a href="#WhosBringingWhat" class="btn-signup">SEE WHO'S BRINGING WHAT</a><a href="#RSVP" class="btn-signup">RSVP</a>
 
     <h2>Party Zone & Closures</h2>
     <div class="map-section">
@@ -249,12 +271,20 @@
     </div>
     
     <div id="WhosBringingWhat">
-        <h2>Who's Bringing What? <a href="#RSVP" class="btn-signup-sm">SIGN UP NOW</a></h2>
-        <p>***If you need to change/update the form, please fill it out again and add "UPDATE" before your Name***</p>
-        <div id="potluck-list-container">
-            <p>Gathering the list from the neighborhood...</p>
-        </div>
+    <h2 style="display: flex; align-items: center; gap: 12px;">
+        Who's Bringing What? 
+    <a href="#RSVP" class="btn-signup-sm">RSVP</a></h2>
+    
+    <p>***If you need to change/update the form, please fill it out again and add "UPDATE" before your Name***</p>
+    <p><svg id="refreshBtn" class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 4v6h-6"></path>
+            <path d="M1 20v-6h6"></path>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+        </svg><em>Refresh</em></p>
+    <div id="potluck-list-container">
+        <p>Gathering the list from the neighborhood...</p>
     </div>
+</div>
 
     <div id="RSVP" class="form-section">
         <h2>RSVP</h2>
@@ -273,11 +303,14 @@
         document.getElementById('headerLogo').style.transform = 'translateY(' + (scrollValue * 0.15) + 'px)';
     });
 
-    // --- DYNAMIC POTLUCK TABLE (JSON) ---
-   async function loadPotluckData() {
+ const refreshBtn = document.getElementById('refreshBtn');
+
+async function loadPotluckData() {
+    // 1. Start the spin
+    refreshBtn.classList.add('spinning');
+    
     try {
-        // The '?t=' + Date.now() is the "cache-buster"
-        // It makes every request look unique to the CDN (e.g., potluck.json?t=1715103000)
+        // 2. Fetch with the cache-buster
         const response = await fetch('data/potluck.json?t=' + Date.now(), {
             cache: "no-store"
         });
@@ -300,13 +333,22 @@
         document.getElementById('potluck-list-container').innerHTML = tableHtml;
         
     } catch (error) {
-        console.error('Error loading JSON:', error);
-        document.getElementById('potluck-list-container').innerHTML = '<p>Signup list will appear here once the first neighbor signs up!</p>';
+        console.error('Error:', error);
+        document.getElementById('potluck-list-container').innerHTML = '<p>Signup list will appear here soon!</p>';
+    } finally {
+        // 3. Stop the spin (even if it fails)
+        // We add a tiny delay so the user actually sees it spin if the network is too fast
+        setTimeout(() => {
+            refreshBtn.classList.remove('spinning');
+        }, 500);
     }
 }
 
-    // Load data when page opens
-    loadPotluckData();
+// Attach the click event
+refreshBtn.addEventListener('click', loadPotluckData);
+
+// Initial load on page visit
+loadPotluckData();
 </script>
 
 </body>
