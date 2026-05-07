@@ -8,5 +8,10 @@
     "name": "John and Rosanne Vonasek",
     "dish": "Grilled meatloaf, buns, bbq sauce",
     "items": "table, garbage can, corn hole game"
+  },
+  {
+    "name": "TEst",
+    "dish": "test",
+    "items": "test"
   }
 ]
