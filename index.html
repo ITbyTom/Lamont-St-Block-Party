@@ -277,7 +277,9 @@
     async function loadPotluckData() {
         try {
             // Fetches your JSON file from the data folder in your repo
-            const response = await fetch('data/potluck.json?t=' + new Date().getTime());
+            const response = await fetch('data/potluck.json', {
+                cache: "no-store" 
+            });
             if (!response.ok) throw new Error('Network response was not ok');
             
             const potluckList = await response.json();
