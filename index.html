@@ -278,7 +278,11 @@
         try {
             // Fetches your JSON file from the data folder in your repo
             const response = await fetch('data/potluck.json', {
-                cache: "no-store" 
+                headers: {
+                    'Cache-Control': 'no-cache',
+                    'Pragma': 'no-cache',
+                    'Expires': '0'
+                }
             });
             if (!response.ok) throw new Error('Network response was not ok');
             
