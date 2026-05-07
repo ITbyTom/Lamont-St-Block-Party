@@ -13,5 +13,10 @@
     "name": "test",
     "dish": "test",
     "items": "test"
+  },
+  {
+    "name": "Test from form",
+    "dish": "test",
+    "items": "test"
   }
 ]
