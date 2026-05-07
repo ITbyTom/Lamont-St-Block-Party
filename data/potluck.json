@@ -1,3 +1,12 @@
 [
- 
+  {
+    "name": "Thomas & Becca",
+    "dish": "Brats!",
+    "items": "Kubb, wiffle ball, chalk"
+  },
+  {
+    "name": "Tom & Becca",
+    "dish": "Brats & Hotdogs",
+    "items": "Tables, Kubb, Football, Wiffleball"
+  }
 ]
