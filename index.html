@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lamont St. Block Party</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Quicksand:wght@500;700&family=Open+Sans&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <style>
+        :root {
+            --primary-blue: #2d63c8;
+            --party-green: #27ae60;
+            --closure-red: #d63031;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Open Sans', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background: url('PASTE_YOUR_HEADER_IMAGE_URL_HERE') no-repeat center center;
+            background-size: cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            /* Fallback if image isn't loaded */
+            background-color: #4a90e2; 
+        }
+
+        .container {
+            max-width: 900px;
+            margin: -50px auto 50px;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: #222;
+        }
+
+        .intro {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        /* The Custom Button Style */
+        .btn-signup {
+            display: inline-block;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: var(--primary-blue);
+            font-size: 19px;
+            font-weight: bold;
+            border: 2px solid var(--primary-blue);
+            padding: 15px 50px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s;
+            margin-bottom: 40px;
+        }
+
+        .btn-signup:hover {
+            color: var(--primary-blue);
+            background-color: #ffffff;
+        }
+
+        /* Map Section */
+        #map {
+            height: 500px;
+            width: 100%;
+            border-radius: 12px;
+            margin: 40px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Leaflet Label Styles */
+        .map-label {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 11px;
+            font-weight: 800;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .label-red { color: var(--closure-red); border: 1.5px solid var(--closure-red); }
+        .label-green { color: var(--party-green); border: 1.5px solid var(--party-green); }
+        
+        .street-label {
+            background: none;
+            color: white;
+            font-size: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            box-shadow: none;
+            border: none;
+        }
+
+        /* Spreadsheet Embed */
+        .spreadsheet-container {
+            margin-top: 40px;
+            border-top: 2px solid #eee;
+            padding-top: 30px;
+        }
+
+        iframe {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 600px) {
+            .container { margin: 0 auto; border-radius: 0; padding: 20px; }
+            header { height: 250px; }
+            .btn-signup { width: 100%; box-sizing: border-box; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    </header>
+
+<div class="container">
+    <h1>Lamont St. Block Party</h1>
+    
+    <div class="intro">
+        <p>It’s time to celebrate our corner of the world! We’re excited to invite all our neighbors to the <strong>Lamont St. Block Party on Thursday, June 19th.</strong> We’ll be closing the street between Brian and Garner from <strong>5:00 to 8:30 PM</strong> to make plenty of room for food, fun, and catching up.</p>
+        
+        <p><strong>Please bring a dish to pass for our neighborhood potluck—we’ll provide the 'Party Zone' and the plates!</strong> Whether you’ve lived here for decades or just moved in, come grab a spot on the asphalt and enjoy a summer evening together. Just remember to bring your own chairs!</p>
+    </div>
+
+    <a href="#signup" class="btn-signup">SIGN UP FOR THE POTLUCK</a>
+
+    <h2>Party Zone & Closures</h2>
+    <div id="map"></div>
+
+    <div id="signup" class="spreadsheet-container">
+        <h2>Who's Bringing What?</h2>
+        <p>Check the list below to see what your neighbors are bringing.</p>
+        <iframe src="PASTE_YOUR_GOOGLE_SHEET_URL_HERE" width="100%" height="500"></iframe>
+    </div>
+</div>
+
+<script>
+    // Map Setup
+    var map = L.map('map', { scrollWheelZoom: false }).setView([44.78144, -91.45295], 18);
+
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Esri'
+    }).addTo(map);
+
+    // 1. Party Zone Polygon
+    L.polygon([
+        [44.7818629, -91.4530089],
+        [44.7810252, -91.4529982],
+        [44.7810256, -91.4528942],
+        [44.7818586, -91.4528889]
+    ], {
+        color: '#55efc4',
+        fillColor: '#55efc4',
+        fillOpacity: 0.3,
+        weight: 2
+    }).addTo(map);
+
+    // 2. Road Closures
+    var closureStyle = { color: '#ff7675', fillColor: '#ff7675', fillOpacity: 0.7, weight: 3 };
+    L.polygon([[44.7818983, -91.4530122], [44.7818743, -91.4530102], [44.7818746, -91.4528929], [44.7818983, -91.4528901]], closureStyle).addTo(map);
+    L.polygon([[44.7810169, -91.4530001], [44.7809978, -91.4530027], [44.780994, -91.4529009], [44.7810159, -91.4529009]], closureStyle).addTo(map);
+
+    function addLabel(coords, text, extraClass, size) {
+        var labelIcon = L.divIcon({
+            className: 'map-label ' + extraClass,
+            html: text,
+            iconSize: size,
+            iconAnchor: [size[0]/2, size[1]/2]
+        });
+        L.marker(coords, {icon: labelIcon}).addTo(map);
+    }
+
+    // Party and Closure Labels
+    addLabel([44.78144, -91.45275], "🥳 PARTY ZONE", "label-green", [110, 26]);
+    addLabel([44.78200, -91.45295], "🚧 ROAD CLOSED", "label-red", [120, 26]);
+    addLabel([44.78085, -91.45295], "🚧 ROAD CLOSED", "label-red", [120, 26]);
+
+    // Street Names
+    addLabel([44.78150, -91.45320], "LAMONT ST", "street-label", [80, 18]);
+    addLabel([44.78197, -91.45325], "BRIAN ST", "street-label", [70, 18]);
+    addLabel([44.78090, -91.45325], "GARNER ST", "street-label", [70, 18]);
+
+</script>
+
+</body>
+</html>
