@@ -12,6 +12,8 @@
             --primary-blue: #2d63c8;
             --text-dark: #222222;
             --bg-light: #fcfcfc;
+            --party-green: #27ae60;
+            --highlight-blue: #e8f4fd;
         }
 
         body {
@@ -37,10 +39,7 @@
 
         .header-bg {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 130%; /* Extra height for smooth sliding */
+            top: 0; left: 0; width: 100%; height: 130%; 
             background: url('LamontStHeader.png') no-repeat center center;
             background-size: cover;
             z-index: 1;
@@ -70,48 +69,15 @@
             border-radius: 12px;
         }
 
-        .event-header {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.4rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-            line-height: 1.2;
-        }
+        .event-header { font-family: 'Montserrat', sans-serif; font-size: 2.4rem; font-weight: 700; margin-bottom: 5px; line-height: 1.2; }
+        .rain-date { font-size: 1.2rem; color: #666; margin-bottom: 40px; }
+        .intro-text { font-size: 1.15rem; margin-bottom: 25px; }
 
-        .rain-date { 
-            font-size: 1.2rem; 
-            color: #666; 
-            margin-bottom: 40px; 
-        }
+        .checklist { list-style: none; padding: 0; margin: 30px 0; }
+        .checklist li { margin-bottom: 12px; position: relative; padding-left: 30px; font-size: 1.1rem; }
+        .checklist li::before { content: "■"; position: absolute; left: 0; color: #333; font-size: 0.9rem; top: 2px; }
 
-        .intro-text {
-            font-size: 1.15rem;
-            margin-bottom: 25px;
-        }
-
-        /* Checklist with Square Bullets */
-        .checklist { 
-            list-style: none; 
-            padding: 0; 
-            margin: 30px 0; 
-        }
-        
-        .checklist li {
-            margin-bottom: 12px;
-            position: relative;
-            padding-left: 30px;
-            font-size: 1.1rem;
-        }
-
-        .checklist li::before {
-            content: "■";
-            position: absolute;
-            left: 0;
-            color: #333;
-            font-size: 0.9rem;
-            top: 2px;
-        }
-
+        /* Buttons */
         .btn-signup {
             display: inline-block;
             text-decoration: none;
@@ -126,12 +92,11 @@
             margin-bottom: 50px;
             margin-right: 7px;
             margin-left: 7px;
+            cursor: pointer;
+            text-align: center;
         }
+        .btn-signup:hover { background: #fff; color: var(--primary-blue); }
 
-        .btn-signup:hover { 
-            background: #fff; 
-            color: var(--primary-blue); 
-        }
         .btn-signup-sm {
             display: inline-block;
             text-decoration: none;
@@ -147,97 +112,36 @@
             margin-right: 7px;
             margin-left: 7px;
         }
+        .btn-signup-sm:hover { background: #fff; color: var(--primary-blue); }
 
-        .btn-signup-sm:hover { 
-            background: #fff; 
-            color: var(--primary-blue); 
-        }
-        /* Map Styling */
+        /* Custom Form Styling */
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-family: 'Montserrat', sans-serif; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; box-sizing: border-box; }
+
+        /* Table & Map */
         .map-section { margin: 40px 0; }
-        
-        .map-image {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            border: 1px solid #ddd;
-        }
+        .map-image { width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 1px solid #ddd; }
+        .map-link { display: block; text-align: right; font-size: 0.9rem; color: var(--primary-blue); margin-top: 10px; text-decoration: none; font-weight: bold; }
 
-        .map-link {
-            display: block;
-            text-align: right;
-            font-size: 0.9rem;
-            color: var(--primary-blue);
-            margin-top: 10px;
-            text-decoration: none;
-            font-weight: bold;
-        }
+        .potluck-table { width: 100%; border-collapse: collapse; margin: 20px 0 50px; }
+        .potluck-table th { text-align: left; background-color: #f8f8f8; padding: 14px; border-bottom: 2px solid #eee; font-family: 'Montserrat', sans-serif; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+        .potluck-table td { padding: 14px; border-bottom: 1px solid #f0f0f0; }
+        .new-row { background-color: var(--highlight-blue); }
 
-        /* Potluck Table */
-        .potluck-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0 50px;
-        }
+        .form-section { border-top: 2px solid #f0f0f0; padding-top: 50px; margin-top: 40px; }
+        h2 { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; margin-bottom: 20px; }
 
-        .potluck-table th {
-            text-align: left;
-            background-color: #f8f8f8;
-            padding: 14px;
-            border-bottom: 2px solid #eee;
-            font-family: 'Montserrat', sans-serif;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-        }
-
-        .potluck-table td {
-            padding: 14px;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .potluck-table tr:last-child td { border-bottom: none; }
-
-        /* RSVP Form Section */
-        .form-section { 
-            border-top: 2px solid #f0f0f0; 
-            padding-top: 50px; 
-            margin-top: 40px;
-        }
-
-        h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-        }
+        .refresh-icon { width: 24px; height: 24px; cursor: pointer; color: #888; transition: color 0.2s ease; vertical-align: middle; }
+        .refresh-icon:hover { color: var(--primary-blue); }
+        .spinning { animation: rotate 0.8s linear infinite; color: var(--primary-blue); }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         @media (max-width: 600px) {
             .event-header { font-size: 1.7rem; }
             .header-wrapper { height: 320px; }
             .container { margin: 0 auto; border-radius: 0; padding: 25px; }
-            .btn-signup { width: 100%; text-align: center; box-sizing: border-box; }
-        }
-        .refresh-icon {
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            color: #888;
-            transition: color 0.2s ease;
-        }
-
-        .refresh-icon:hover {
-            color: var(--primary-blue);
-        }
-
-        /* The spinning class we'll toggle with JS */
-        .spinning {
-            animation: rotate 0.8s linear infinite;
-            color: var(--primary-blue);
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            .btn-signup { width: 100%; text-align: center; box-sizing: border-box; margin-left: 0; margin-right: 0; }
         }
     </style>
 </head>
@@ -271,84 +175,117 @@
     </div>
     
     <div id="WhosBringingWhat">
-    <h2 style="display: flex; align-items: center; gap: 12px;">
-        Who's Bringing What? 
-    <a href="#RSVP" class="btn-signup-sm">RSVP</a></h2>
-    
-    <p>***If you need to change/update the form, please fill it out again and add "UPDATE" before your Name***</p>
-    <p><svg id="refreshBtn" class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M23 4v6h-6"></path>
-            <path d="M1 20v-6h6"></path>
-            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-        </svg><em>Refresh - *Up to 1 minute to update*</em></p>
-    <div id="potluck-list-container">
-        <p>Gathering the list from the neighborhood...</p>
+        <h2 style="display: flex; align-items: center; gap: 12px;">
+            Who's Bringing What? 
+            <a href="#RSVP" class="btn-signup-sm">RSVP</a>
+        </h2>
+        
+        <p><em>***If you need to change/update the form, please fill it out again and add "UPDATE" before your Name***</em></p>
+        
+        <p>
+            <svg id="refreshBtn" class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+            <em> Refresh - *Up to 1 minute to update*</em>
+        </p>
+
+        <div id="potluck-list-container">
+            <p>Gathering the list from the neighborhood...</p>
+        </div>
     </div>
-</div>
 
     <div id="RSVP" class="form-section">
         <h2>RSVP</h2>
         <p>Check the list above first to see what we might still need! <a href="#WhosBringingWhat" class="btn-signup-sm">SEE WHO'S BRINGING WHAT</a><br /><br />***If you need to change/update the form, please fill it out again and add "UPDATE" before your Name***</p>
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScEvLf9KLkprHbCuRazjKPwx2xAo3iluoeNJQI-jtxGwejcwA/viewform?embedded=true" width="100%" height="1000" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        
+        <form id="partyForm" target="hidden_iframe" onsubmit="handleOptimisticSubmit()">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" id="nameIn" name="entry.657713933" required>
+            </div>
+            <div class="form-group">
+                <label>Dish:</label>
+                <input type="text" id="dishIn" name="entry.1774690064" required>
+            </div>
+            <div class="form-group">
+                <label>Other Items (Tables, games, etc...)</label>
+                <input type="text" id="itemsIn" name="entry.661656575">
+            </div>
+            <div class="form-group">
+                <label>Email or Phone#</label>
+                <small style="display:block; color:#666; margin-bottom:5px;">(Private: Only used for updates/reminders)</small>
+                <input type="text" id="contactIn" name="entry.474208481" required>
+            </div>
+            <button type="submit" class="btn-signup" style="width:100%; margin-left:0; margin-right:0;">SUBMIT RSVP</button>
+        </form>
+
+        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { showSuccess(); }"></iframe>
+        <div id="successMsg" style="display:none; color: var(--party-green); text-align: center; padding: 30px; border: 2px dashed var(--party-green); border-radius: 8px; font-weight: bold; margin-top: 20px;">
+            🎉 Success! You've been added to the list.
+        </div>
     </div>
 </div>
 
 <script>
-    // --- PARALLAX EFFECT ---
+    let submitted = false;
+    const refreshBtn = document.getElementById('refreshBtn');
+
+    // --- PARALLAX ---
     window.addEventListener('scroll', function() {
         let scrollValue = window.scrollY;
-        // Background slides slower (factor 0.4)
         document.getElementById('headerBg').style.transform = 'translateY(' + (scrollValue * 0.4) + 'px)';
-        // Logo slides slightly faster for depth (factor 0.15)
         document.getElementById('headerLogo').style.transform = 'translateY(' + (scrollValue * 0.15) + 'px)';
     });
 
- const refreshBtn = document.getElementById('refreshBtn');
-
-async function loadPotluckData() {
-    // 1. Start the spin
-    refreshBtn.classList.add('spinning');
-    
-    try {
-        // 2. Fetch with the cache-buster
-        const response = await fetch('data/potluck.json?t=' + Date.now(), {
-            cache: "no-store"
-        });
-
-        if (!response.ok) throw new Error('Network response was not ok');
-        
-        const potluckList = await response.json();
-        
-        let tableHtml = '<table class="potluck-table"><thead><tr><th>Name</th><th>Dish</th><th>Other Items</th></tr></thead><tbody>';
-        
-        potluckList.forEach(entry => {
-            tableHtml += `<tr>
-                <td>${entry.name || 'Anonymous'}</td>
-                <td>${entry.dish || '--'}</td>
-                <td>${entry.items || ''}</td>
-            </tr>`;
-        });
-        
-        tableHtml += '</tbody></table>';
-        document.getElementById('potluck-list-container').innerHTML = tableHtml;
-        
-    } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('potluck-list-container').innerHTML = '<p>Signup list will appear here soon!</p>';
-    } finally {
-        // 3. Stop the spin (even if it fails)
-        // We add a tiny delay so the user actually sees it spin if the network is too fast
-        setTimeout(() => {
-            refreshBtn.classList.remove('spinning');
-        }, 500);
+    // --- LOAD JSON DATA ---
+    async function loadPotluckData() {
+        refreshBtn.classList.add('spinning');
+        try {
+            const response = await fetch('data/potluck.json?t=' + Date.now(), { cache: "no-store" });
+            if (!response.ok) throw new Error('Network error');
+            const potluckList = await response.json();
+            
+            let tableHtml = '<table class="potluck-table"><thead><tr><th>Name</th><th>Dish</th><th>Other Items</th></tr></thead><tbody>';
+            potluckList.forEach(entry => {
+                tableHtml += `<tr><td>${entry.name || 'Anonymous'}</td><td>${entry.dish || '--'}</td><td>${entry.items || ''}</td></tr>`;
+            });
+            tableHtml += '</tbody></table>';
+            document.getElementById('potluck-list-container').innerHTML = tableHtml;
+        } catch (error) {
+            document.getElementById('potluck-list-container').innerHTML = '<p>Signup list will appear here soon!</p>';
+        } finally {
+            setTimeout(() => refreshBtn.classList.remove('spinning'), 500);
+        }
     }
-}
 
-// Attach the click event
-refreshBtn.addEventListener('click', loadPotluckData);
+    // --- OPTIMISTIC HIJACK ---
+    function handleOptimisticSubmit() {
+        const name = document.getElementById('nameIn').value;
+        const dish = document.getElementById('dishIn').value;
+        const items = document.getElementById('itemsIn').value;
 
-// Initial load on page visit
-loadPotluckData();
+        // Inject row into table instantly
+        const tbody = document.querySelector('.potluck-table tbody');
+        const row = document.createElement('tr');
+        row.className = 'new-row';
+        row.innerHTML = `<td><strong>${name} (New!)</strong></td><td>${dish}</td><td>${items}</td>`;
+        tbody.insertBefore(row, tbody.firstChild);
+
+        // Set action and trigger hidden iframe post
+        document.getElementById('partyForm').action = "https://docs.google.com/forms/u/0/d/e/1FAIpQLScEvLf9KLkprHbCuRazjKPwx2xAo3iluoeNJQI-jtxGwejcwA/formResponse";
+        submitted = true;
+        
+        // Scroll to table so they see the update
+        document.getElementById('WhosBringingWhat').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showSuccess() {
+        document.getElementById('partyForm').style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+    }
+
+    refreshBtn.addEventListener('click', loadPotluckData);
+    loadPotluckData();
 </script>
 
 </body>
