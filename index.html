@@ -124,13 +124,34 @@
             transition: 0.3s;
             border: 2px solid var(--primary-blue);
             margin-bottom: 50px;
+            margin-right: 7px;
+            margin-left: 7px;
         }
 
         .btn-signup:hover { 
             background: #fff; 
             color: var(--primary-blue); 
         }
+        .btn-signup-sm {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            background-color: var(--primary-blue);
+            font-size: 12px;
+            font-weight: bold;
+            padding: 12px 30px;
+            border-radius: 4px;
+            transition: 0.3s;
+            border: 2px solid var(--primary-blue);
+            margin-bottom: 30px;
+            margin-right: 7px;
+            margin-left: 7px;
+        }
 
+        .btn-signup-sm:hover { 
+            background: #fff; 
+            color: var(--primary-blue); 
+        }
         /* Map Styling */
         .map-section { margin: 40px 0; }
         
@@ -219,7 +240,7 @@
         <li><strong>RSVP:</strong> Use the form below to let us know you’re coming!</li>
     </ul>
 
-    <a href="#RSVP" class="btn-signup">SIGN UP NOW</a>
+    <a href="#WhosBringingWhat" class="btn-signup">SEE WHO'S BRINGING WHAT</a><a href="#RSVP" class="btn-signup">SIGN UP NOW</a>
 
     <h2>Party Zone & Closures</h2>
     <div class="map-section">
@@ -228,7 +249,7 @@
     </div>
     
     <div id="WhosBringingWhat">
-        <h2>Who's Bringing What?</h2>
+        <h2>Who's Bringing What? <a href="#RSVP" class="btn-signup-sm">SIGN UP NOW</a></h2>
         <div id="potluck-list-container">
             <p>Gathering the list from the neighborhood...</p>
         </div>
@@ -236,7 +257,7 @@
 
     <div id="RSVP" class="form-section">
         <h2>RSVP</h2>
-        <p>Check the list above first to see what we might still need!</p>
+        <p>Check the list above first to see what we might still need! <a href="#WhosBringingWhat" class="btn-signup-sm">SEE WHO'S BRINGING WHAT</a></p>
         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScEvLf9KLkprHbCuRazjKPwx2xAo3iluoeNJQI-jtxGwejcwA/viewform?embedded=true" width="100%" height="1000" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
 </div>
