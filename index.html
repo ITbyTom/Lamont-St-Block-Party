@@ -274,38 +274,36 @@
     });
 
     // --- DYNAMIC POTLUCK TABLE (JSON) ---
-    async function loadPotluckData() {
-        try {
-            // Fetches your JSON file from the data folder in your repo
-            const response = await fetch('data/potluck.json', {
-                headers: {
-                    'Cache-Control': 'no-cache',
-                    'Pragma': 'no-cache',
-                    'Expires': '0'
-                }
-            });
-            if (!response.ok) throw new Error('Network response was not ok');
-            
-            const potluckList = await response.json();
-            
-            let tableHtml = '<table class="potluck-table"><thead><tr><th>Name</th><th>Dish</th><th>Other Items</th></tr></thead><tbody>';
-            
-            potluckList.forEach(entry => {
-                tableHtml += `<tr>
-                    <td>${entry.name || 'Anonymous'}</td>
-                    <td>${entry.dish || '--'}</td>
-                    <td>${entry.items || ''}</td>
-                </tr>`;
-            });
-            
-            tableHtml += '</tbody></table>';
-            document.getElementById('potluck-list-container').innerHTML = tableHtml;
-            
-        } catch (error) {
-            console.error('Error loading JSON:', error);
-            document.getElementById('potluck-list-container').innerHTML = '<p>The potluck list will appear here once the first neighbor signs up!</p>';
-        }
+   async function loadPotluckData() {
+    try {
+        // The '?t=' + Date.now() is the "cache-buster"
+        // It makes every request look unique to the CDN (e.g., potluck.json?t=1715103000)
+        const response = await fetch('data/potluck.json?t=' + Date.now(), {
+            cache: "no-store"
+        });
+
+        if (!response.ok) throw new Error('Network response was not ok');
+        
+        const potluckList = await response.json();
+        
+        let tableHtml = '<table class="potluck-table"><thead><tr><th>Name</th><th>Dish</th><th>Other Items</th></tr></thead><tbody>';
+        
+        potluckList.forEach(entry => {
+            tableHtml += `<tr>
+                <td>${entry.name || 'Anonymous'}</td>
+                <td>${entry.dish || '--'}</td>
+                <td>${entry.items || ''}</td>
+            </tr>`;
+        });
+        
+        tableHtml += '</tbody></table>';
+        document.getElementById('potluck-list-container').innerHTML = tableHtml;
+        
+    } catch (error) {
+        console.error('Error loading JSON:', error);
+        document.getElementById('potluck-list-container').innerHTML = '<p>Signup list will appear here once the first neighbor signs up!</p>';
     }
+}
 
     // Load data when page opens
     loadPotluckData();
