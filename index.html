@@ -306,84 +306,168 @@
 
         <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { showSuccess(); }"></iframe>
         <div id="successMsg" style="display:none; color: var(--party-green); text-align: center; padding: 30px; border: 2px dashed var(--party-green); border-radius: 8px; font-weight: bold; margin-top: 20px;">
-            🎉 Success! You've been added to the list.
+    🎉 Success! You've been added to the list.
+    <div style="margin-top: 20px; color: #444; font-weight: normal;">
+        <p><strong>Add this to your calendar:</strong></p>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+            <a id="googleCalLink" target="_blank" class="btn-signup-sm" style="margin:0;">Google Calendar</a>
+            <a id="appleCalLink" class="btn-signup-sm" style="margin:0;">Apple / iOS</a>
         </div>
+    </div>
+</div>
     </div>
 </div>
 
 <script>
+    // --- GLOBAL STATE & ELEMENTS ---
     let submitted = false;
+    let userDish = "";
+    let userItems = "";
     const refreshBtn = document.getElementById('refreshBtn');
     const helpTrigger = document.getElementById('helpTrigger');
 
-    // --- PARALLAX ---
+    // --- 1. PARALLAX SCROLL LOGIC ---
+    // Background moves at 40% speed, Logo at 15% for a depth effect
     window.addEventListener('scroll', function() {
         let scrollValue = window.scrollY;
-        document.getElementById('headerBg').style.transform = 'translateY(' + (scrollValue * 0.4) + 'px)';
-        document.getElementById('headerLogo').style.transform = 'translateY(' + (scrollValue * 0.15) + 'px)';
+        const bg = document.getElementById('headerBg');
+        const logo = document.getElementById('headerLogo');
+        
+        if (bg) bg.style.transform = 'translateY(' + (scrollValue * 0.4) + 'px)';
+        if (logo) logo.style.transform = 'translateY(' + (scrollValue * 0.15) + 'px)';
     });
 
-    // --- LOAD DATA (REVERSED) ---
+    // --- 2. DYNAMIC DATA LOADING (JSON) ---
+    // Fetches the JSON file, reverses it (newest first), and builds the table
     async function loadPotluckData() {
-        refreshBtn.classList.add('spinning');
+        if (refreshBtn) refreshBtn.classList.add('spinning');
+        
         try {
-            const response = await fetch('data/potluck.json?t=' + Date.now(), { cache: "no-store" });
-            if (!response.ok) throw new Error('Network error');
+            // Using Date.now() as a cache-buster to force GitHub CDN to serve fresh data
+            const response = await fetch('data/potluck.json?t=' + Date.now(), { 
+                cache: "no-store" 
+            });
+            
+            if (!response.ok) throw new Error('Network response was not ok');
             const potluckList = await response.json();
             
             let tableHtml = '<table class="potluck-table"><thead><tr><th>Name</th><th>Dish</th><th>Other Items</th></tr></thead><tbody>';
+            
+            // Reverse the array so the most recent entries from the JSON appear at the top
             potluckList.reverse().forEach(entry => {
-                tableHtml += `<tr><td>${entry.name || 'Anonymous'}</td><td>${entry.dish || '--'}</td><td>${entry.items || ''}</td></tr>`;
+                tableHtml += `<tr>
+                    <td>${entry.name || 'Anonymous'}</td>
+                    <td>${entry.dish || '--'}</td>
+                    <td>${entry.items || ''}</td>
+                </tr>`;
             });
+            
             tableHtml += '</tbody></table>';
             document.getElementById('potluck-list-container').innerHTML = tableHtml;
+            
         } catch (error) {
+            console.error('Error loading JSON:', error);
             document.getElementById('potluck-list-container').innerHTML = '<p>Signup list will appear here once responses roll in!</p>';
         } finally {
-            setTimeout(() => refreshBtn.classList.remove('spinning'), 500);
+            // End the spin animation after a slight delay for visual feedback
+            setTimeout(() => {
+                if (refreshBtn) refreshBtn.classList.remove('spinning');
+            }, 600);
         }
     }
 
-    // --- OPTIMISTIC HIJACK ---
+    // --- 3. OPTIMISTIC UI & FORM SUBMISSION ---
+    // Injects the row immediately so neighbors see instant results
     function handleOptimisticSubmit() {
+        // Capture values
         const name = document.getElementById('nameIn').value;
-        const dish = document.getElementById('dishIn').value;
-        const items = document.getElementById('itemsIn').value;
+        userDish = document.getElementById('dishIn').value;
+        userItems = document.getElementById('itemsIn').value;
 
         const tbody = document.querySelector('.potluck-table tbody');
         if (tbody) {
             const row = document.createElement('tr');
-            row.className = 'flash-row';
-            row.innerHTML = `<td><strong>${name}</strong><span class="new-badge">(NEW!)</span></td><td>${dish}</td><td>${items}</td>`;
+            row.className = 'flash-row'; // Triggers the blue pulsing CSS animation
+            row.innerHTML = `<td><strong>${name}</strong><span class="new-badge">(NEW!)</span></td><td>${userDish}</td><td>${userItems}</td>`;
+            
+            // Insert at the very top of the table
             tbody.insertBefore(row, tbody.firstChild);
         }
 
-        submitToGoogle();
-    }
-
-    function submitToGoogle() {
+        // Set the form action and trigger the hidden iframe post
         document.getElementById('partyForm').action = "https://docs.google.com/forms/u/0/d/e/1FAIpQLScEvLf9KLkprHbCuRazjKPwx2xAo3iluoeNJQI-jtxGwejcwA/formResponse";
         submitted = true;
+        
+        // Scroll back up to the table so the user sees the "flash" update
         document.getElementById('WhosBringingWhat').scrollIntoView({ behavior: 'smooth' });
     }
 
+    // Called by the hidden iframe's onload event
     function showSuccess() {
         document.getElementById('partyForm').style.display = 'none';
         document.getElementById('successMsg').style.display = 'block';
+        
+        // Build the calendar invites using the data they just submitted
+        generateCalendarLinks(userDish, userItems);
     }
 
-    // --- EVENT LISTENERS ---
-    refreshBtn.addEventListener('click', loadPotluckData);
+    // --- 4. CALENDAR INVITE GENERATION ---
+    function generateCalendarLinks(dish, items) {
+        const title = "Lamont St. Block Party";
+        const location = "Lamont St (between Brian & Garner), Eau Claire, WI";
+        const description = `Dish to bring: ${dish}\nOther items: ${items}\n\nLive List: https://itbytom.github.io/Lamont-St-Block-Party/`;
+        
+        // June 10, 2026. 5:00 PM - 8:30 PM CDT (UTC Times below)
+        const startTime = "20260610T220000Z"; 
+        const endTime = "20260611T013000Z";
 
-    helpTrigger.addEventListener('click', function(e) {
-        this.classList.toggle('active');
-        e.stopPropagation();
+        // Google Calendar
+        const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startTime}/${endTime}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
+        document.getElementById('googleCalLink').href = gCalUrl;
+
+        // Apple/iOS (.ics)
+        const icsContent = [
+            "BEGIN:VCALENDAR",
+            "VERSION:2.0",
+            "BEGIN:VEVENT",
+            `DTSTART:${startTime}`,
+            `DTEND:${endTime}`,
+            `SUMMARY:${title}`,
+            `DESCRIPTION:${description.replace(/\n/g, "\\n")}`,
+            `LOCATION:${location}`,
+            "END:VEVENT",
+            "END:VCALENDAR"
+        ].join("\n");
+
+        const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+        const appleLink = document.getElementById('appleCalLink');
+        appleLink.href = window.URL.createObjectURL(blob);
+        appleLink.setAttribute("download", "block-party.ics");
+    }
+
+    // --- 5. EVENT LISTENERS & INITIALIZATION ---
+    
+    // Refresh Button Click
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', loadPotluckData);
+    }
+
+    // Help Tooltip Toggle (for Mobile Tap)
+    if (helpTrigger) {
+        helpTrigger.addEventListener('click', function(e) {
+            this.classList.toggle('active');
+            e.stopPropagation();
+        });
+    }
+
+    // Close tooltip when clicking anywhere else
+    document.addEventListener('click', () => {
+        if (helpTrigger) helpTrigger.classList.remove('active');
     });
 
-    document.addEventListener('click', () => helpTrigger.classList.remove('active'));
-
-    // Initial load
+    // Run on page load
     loadPotluckData();
+
 </script>
 
 </body>
