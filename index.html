@@ -258,7 +258,16 @@
         </h2>
         
         <p><em>***If you need to change/update the form, please fill it out again and add "UPDATE" before your Name***</em></p>
-        
+        <div id="successMsg" style="display:none; color: var(--party-green); text-align: center; padding: 30px; border: 2px dashed var(--party-green); border-radius: 8px; font-weight: bold; margin-top: 20px;">
+    🎉 Success! You've been added to the list.
+    <div style="margin-top: 20px; color: #444; font-weight: normal;">
+        <p><strong>Add this to your calendar:</strong></p>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+            <a id="googleCalLink" target="_blank" class="btn-signup-sm" style="margin:0;">Google Calendar</a>
+            <a id="appleCalLink" class="btn-signup-sm" style="margin:0;">Apple / iOS</a>
+        </div>
+    </div>
+</div>
         <p style="display: flex; align-items: center; gap: 10px;">
             <svg id="refreshBtn" class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
@@ -277,16 +286,6 @@
         <div id="potluck-list-container">
             <p>Gathering the list from the neighborhood...</p>
         </div>
-        <div id="successMsg" style="display:none; color: var(--party-green); text-align: center; padding: 30px; border: 2px dashed var(--party-green); border-radius: 8px; font-weight: bold; margin-top: 20px;">
-    🎉 Success! You've been added to the list.
-    <div style="margin-top: 20px; color: #444; font-weight: normal;">
-        <p><strong>Add this to your calendar:</strong></p>
-        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-            <a id="googleCalLink" target="_blank" class="btn-signup-sm" style="margin:0;">Google Calendar</a>
-            <a id="appleCalLink" class="btn-signup-sm" style="margin:0;">Apple / iOS</a>
-        </div>
-    </div>
-</div>
     </div>
 
     <div id="RSVP" class="form-section">
