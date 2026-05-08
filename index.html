@@ -277,6 +277,16 @@
         <div id="potluck-list-container">
             <p>Gathering the list from the neighborhood...</p>
         </div>
+        <div id="successMsg" style="display:none; color: var(--party-green); text-align: center; padding: 30px; border: 2px dashed var(--party-green); border-radius: 8px; font-weight: bold; margin-top: 20px;">
+    🎉 Success! You've been added to the list.
+    <div style="margin-top: 20px; color: #444; font-weight: normal;">
+        <p><strong>Add this to your calendar:</strong></p>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+            <a id="googleCalLink" target="_blank" class="btn-signup-sm" style="margin:0;">Google Calendar</a>
+            <a id="appleCalLink" class="btn-signup-sm" style="margin:0;">Apple / iOS</a>
+        </div>
+    </div>
+</div>
     </div>
 
     <div id="RSVP" class="form-section">
@@ -305,16 +315,7 @@
         </form>
 
         <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { showSuccess(); }"></iframe>
-        <div id="successMsg" style="display:none; color: var(--party-green); text-align: center; padding: 30px; border: 2px dashed var(--party-green); border-radius: 8px; font-weight: bold; margin-top: 20px;">
-    🎉 Success! You've been added to the list.
-    <div style="margin-top: 20px; color: #444; font-weight: normal;">
-        <p><strong>Add this to your calendar:</strong></p>
-        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-            <a id="googleCalLink" target="_blank" class="btn-signup-sm" style="margin:0;">Google Calendar</a>
-            <a id="appleCalLink" class="btn-signup-sm" style="margin:0;">Apple / iOS</a>
-        </div>
-    </div>
-</div>
+        
     </div>
 </div>
 
