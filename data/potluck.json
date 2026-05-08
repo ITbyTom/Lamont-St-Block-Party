@@ -8,15 +8,5 @@
     "name": "John and Rosanne Vonasek",
     "dish": "Grilled meatloaf, buns, bbq sauce",
     "items": "table, garbage can, corn hole game"
-  },
-  {
-    "name": "Newest Test",
-    "dish": "Tester",
-    "items": "test"
-  },
-  {
-    "name": "Last Test",
-    "dish": "test",
-    "items": "test"
   }
 ]
