@@ -183,12 +183,13 @@
         <li><strong>RSVP:</strong> Sign up below so we can track the spread!</li>
     </ul>
 
-    <!-- Static Save the Date -->
+    <!-- The Static Save the Date block -->
     <div style="margin: 20px 0; text-align: center; background: #f9f9f9; padding: 15px; border-radius: 8px;">
         <p style="margin-bottom: 10px;"><strong>Save the Date:</strong></p>
         <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-            <a id="googleCalStatic" target="_blank" class="btn-signup-sm">Google Calendar</a>
-            <a id="appleCalStatic" class="btn-signup-sm">Apple / iOS</a>
+            <!-- Changed IDs to match the LinkStatic pattern -->
+            <a id="googleCalLinkStatic" target="_blank" class="btn-signup-sm">Google Calendar</a>
+            <a id="appleCalLinkStatic" class="btn-signup-sm">Apple / iOS</a>
         </div>
     </div>
 
@@ -332,25 +333,50 @@
     function generateCalendarLinks(dish, items, suffix) {
         const title = "Lamont St. Block Party";
         const loc = "Lamont St (between Brian & Garner), Eau Claire, WI";
+        
+        // Formatting the description
         const dText = dish ? `Dish: ${dish}` : "Potluck Dish: TBD";
         const iText = items ? `Items: ${items}` : "";
         const desc = `${dText}\n${iText}\n\nLive List: https://itbytom.github.io/Lamont-St-Block-Party/`;
-        const start = "20260610T220000Z"; const end = "20260611T013000Z";
+        
+        // Times in UTC (5:00 PM - 8:30 PM CDT is 22:00 - 01:30 UTC)
+        const start = "20260610T220000Z"; 
+        const end = "20260611T013000Z";
 
-        // Update Google
+        // 1. Update Google Calendar Link
         const gUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${start}/${end}&details=${encodeURIComponent(desc)}&location=${encodeURIComponent(loc)}`;
-        if(document.getElementById('googleCalLink' + suffix)) document.getElementById('googleCalLink' + suffix).href = gUrl;
+        const gBtn = document.getElementById('googleCalLink' + suffix);
+        if (gBtn) gBtn.href = gUrl;
 
-        // Update Apple
-        const ics = ["BEGIN:VCALENDAR","VERSION:2.0","BEGIN:VEVENT",`DTSTART:${start}`,`DTEND:${end}`,`SUMMARY:${title}`,`DESCRIPTION:${desc.replace(/\n/g, "\\n")}`,`LOCATION:${loc}`,"END:VEVENT","END:VCALENDAR"].join("\n");
-        const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+        // 2. Update Apple/iOS (.ics) Link
+        const icsContent = [
+            "BEGIN:VCALENDAR",
+            "VERSION:2.0",
+            "PRODID:-//Lamont St//Block Party//EN",
+            "BEGIN:VEVENT",
+            `UID:${Date.now()}@lamontst`,
+            `DTSTAMP:${start}`,
+            `DTSTART:${start}`,
+            `DTEND:${end}`,
+            `SUMMARY:${title}`,
+            `DESCRIPTION:${desc.replace(/\n/g, "\\n")}`,
+            `LOCATION:${loc}`,
+            "END:VEVENT",
+            "END:VCALENDAR"
+        ].join("\r\n"); // Using CRLF for better compatibility
+
+        const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
         const aBtn = document.getElementById('appleCalLink' + suffix);
-        if(aBtn) {
+        
+        if (aBtn) {
+            // Clean up old object URLs to prevent memory leaks/broken links
+            if (aBtn.href.startsWith('blob:')) {
+                window.URL.revokeObjectURL(aBtn.href);
+            }
             aBtn.href = window.URL.createObjectURL(blob);
             aBtn.setAttribute("download", "block-party.ics");
         }
     }
-
     // --- INITIALIZE ---
     refreshBtn.addEventListener('click', loadPotluckData);
     helpTrigger.addEventListener('click', (e) => { helpTrigger.classList.toggle('active'); e.stopPropagation(); });
