@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- GoatCounter Tracking -->
     <script data-goatcounter="https://lamontstblockparty.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    
     <title>Lamont St. Block Party</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
@@ -91,7 +93,7 @@
             border-radius: 4px;
             transition: 0.3s;
             border: 2px solid var(--primary-blue);
-            margin-bottom: 50px;
+            margin-bottom: 20px;
             margin-right: 7px;
             margin-left: 7px;
             cursor: pointer;
@@ -106,13 +108,11 @@
             background-color: var(--primary-blue);
             font-size: 12px;
             font-weight: bold;
-            padding: 12px 30px;
+            padding: 12px 25px;
             border-radius: 4px;
             transition: 0.3s;
             border: 2px solid var(--primary-blue);
-            margin-bottom: 30px;
-            margin-right: 7px;
-            margin-left: 7px;
+            cursor: pointer;
         }
         .btn-signup-sm:hover { background: #fff; color: var(--primary-blue); }
 
@@ -121,106 +121,45 @@
         .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-family: 'Montserrat', sans-serif; }
         .form-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; box-sizing: border-box; }
 
-        /* Table Styling */
+        /* Table & Animations */
         .potluck-table { width: 100%; border-collapse: collapse; margin: 20px 0 50px; }
         .potluck-table th { text-align: left; background-color: #f8f8f8; padding: 14px; border-bottom: 2px solid #eee; font-family: 'Montserrat', sans-serif; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
         .potluck-table td { padding: 14px; border-bottom: 1px solid #f0f0f0; }
 
-        /* Animation for the NEW row */
-        .new-badge {
-            color: var(--alert-red);
-            font-weight: bold;
-            margin-left: 5px;
-        }
-
-        .flash-row {
-            animation: flashBlue 4s ease-in-out forwards;
-        }
+        .new-badge { color: var(--alert-red); font-weight: bold; margin-left: 5px; }
+        .flash-row { animation: flashBlue 4s ease-in-out forwards; }
 
         @keyframes flashBlue {
-            0% { background-color: transparent; }
-            20% { background-color: var(--highlight-blue); }
-            40% { background-color: transparent; }
-            60% { background-color: var(--highlight-blue); }
-            80% { background-color: transparent; }
-            100% { background-color: var(--highlight-blue); }
+            0%, 40%, 80% { background-color: transparent; }
+            20%, 60%, 100% { background-color: var(--highlight-blue); }
         }
 
         .map-image { width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 1px solid #ddd; }
         .map-link { display: block; text-align: right; font-size: 0.9rem; color: var(--primary-blue); margin-top: 10px; text-decoration: none; font-weight: bold; }
 
-        .refresh-icon { width: 24px; height: 24px; cursor: pointer; color: #888; transition: color 0.2s ease; vertical-align: middle; margin-top: -3px; }
+        .refresh-icon { width: 24px; height: 24px; cursor: pointer; color: #888; transition: color 0.2s ease; vertical-align: middle; }
         .spinning { animation: rotate 0.8s linear infinite; color: var(--primary-blue); }
         @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* Help Text Trigger Styling */
-        .help-container {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-
-        .help-text-trigger {
-            font-size: 0.85rem;
-            color: var(--primary-blue);
-            text-decoration: underline dotted;
-            font-family: 'Open Sans', sans-serif;
-            font-weight: normal;
-            transition: color 0.2s;
-        }
-
-        .help-container:hover .help-text-trigger {
-            color: #1a4ba3;
-        }
-
-        /* The Tooltip Box */
+        /* Help Tooltip */
+        .help-container { position: relative; display: inline-block; cursor: pointer; margin-left: 10px; }
+        .help-text-trigger { font-size: 0.85rem; color: var(--primary-blue); text-decoration: underline dotted; }
         .help-tooltip {
-            visibility: hidden;
-            width: 260px;
-            background-color: #333;
-            color: #fff;
-            text-align: left;
-            border-radius: 8px;
-            padding: 15px;
-            position: absolute;
-            z-index: 10;
-            bottom: 140%;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.85rem;
-            font-weight: normal;
-            line-height: 1.4;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            visibility: hidden; width: 260px; background-color: #333; color: #fff; text-align: left;
+            border-radius: 8px; padding: 15px; position: absolute; z-index: 10; bottom: 140%; left: 50%;
+            transform: translateX(-50%); opacity: 0; transition: opacity 0.3s; font-size: 0.85rem; font-weight: normal;
         }
-
-        .help-tooltip::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #333 transparent transparent transparent;
-        }
-
-        .help-container:hover .help-tooltip, 
-        .help-container.active .help-tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
+        .help-tooltip::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -5px; border-width: 5px; border-style: solid; border-color: #333 transparent transparent transparent; }
+        .help-container:hover .help-tooltip, .help-container.active .help-tooltip { visibility: visible; opacity: 1; }
 
         @media (max-width: 600px) {
             .event-header { font-size: 1.7rem; }
             .header-wrapper { height: 320px; }
             .container { margin: 0 auto; border-radius: 0; padding: 25px; }
-            .btn-signup { width: 100%; text-align: center; box-sizing: border-box; margin-left: 0; margin-right: 0; }
+            .btn-signup { width: 100%; margin-left: 0; margin-right: 0; }
             .help-tooltip { left: auto; right: 0; transform: none; width: 220px; }
             .help-tooltip::after { left: auto; right: 20px; }
-        }   
+        }
     </style>
 </head>
 <body>
@@ -235,63 +174,76 @@
     <div class="rain-date">(Rain Date: Thursday, June 11th)</div>
 
     <div class="intro-text">
-        Join us for the Lamont St. Block Party! On <strong>Wednesday, June 10th (5:00-8:30 PM)</strong>, we’re closing the road between Brian St and Garner St for an evening of neighborhood fun.
+        Join us for the Lamont St. Block Party! We’re closing the road between Brian St and Garner St for an evening of neighborhood fun.
     </div>
 
     <ul class="checklist">
-        <li><strong>Bring:</strong> Your neighborhood spirit and a few lawn chairs.</li>
+        <li><strong>Bring:</strong> Neighborhood spirit and a few lawn chairs.</li>
         <li><strong>Share:</strong> A favorite dish to pass for the potluck.</li>
-        <li><strong>RSVP:</strong> Use the form below to let us know you’re coming!</li>
+        <li><strong>RSVP:</strong> Sign up below so we can track the spread!</li>
     </ul>
 
-    <a href="#WhosBringingWhat" class="btn-signup">SEE WHO'S BRINGING WHAT</a><a href="#RSVP" class="btn-signup">RSVP</a>
+    <!-- Static Save the Date -->
+    <div style="margin: 20px 0; text-align: center; background: #f9f9f9; padding: 15px; border-radius: 8px;">
+        <p style="margin-bottom: 10px;"><strong>Save the Date:</strong></p>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+            <a id="googleCalStatic" target="_blank" class="btn-signup-sm">Google Calendar</a>
+            <a id="appleCalStatic" class="btn-signup-sm">Apple / iOS</a>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin: 30px 0;">
+        <a href="#WhosBringingWhat" class="btn-signup">SEE WHO'S BRINGING WHAT</a>
+        <a href="#RSVP" class="btn-signup">RSVP NOW</a>
+    </div>
 
     <h2>Party Zone & Closures</h2>
     <div class="map-section">
-        <img src="PartyZone.jpg" alt="Map showing Lamont St closures and party zone" class="map-image">
-        <a href="https://www.google.com/maps/search/?api=1&query=44.78144,-91.45295" target="_blank" class="map-link">Open in Google Maps for Directions →</a>
+        <img src="PartyZone.jpg" alt="Map" class="map-image">
+        <a href="https://www.google.com/maps/search/?api=1&query=44.78144,-91.45295" target="_blank" class="map-link">Open in Google Maps →</a>
     </div>
     
-    <div id="WhosBringingWhat">
+    <div id="WhosBringingWhat" style="margin-top: 50px;">
         <h2 style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
             Who's Bringing What? 
-            <a href="#RSVP" class="btn-signup-sm">RSVP</a>
+            <a href="#RSVP" class="btn-signup-sm" style="font-size: 10px; padding: 8px 15px;">RSVP</a>
         </h2>
         
-        <p><em>***If you need to change/update the form, please fill it out again and add "UPDATE" before your Name***</em></p>
-        <div id="successMsg" style="display:none; color: var(--party-green); text-align: center; padding: 30px; border: 2px dashed var(--party-green); border-radius: 8px; font-weight: bold; margin-top: 20px;">
-    🎉 Success! You've been added to the list.
-    <div style="margin-top: 20px; color: #444; font-weight: normal;">
-        <p><strong>Add this to your calendar:</strong></p>
-        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-            <a id="googleCalLink" target="_blank" class="btn-signup-sm" style="margin:0;">Google Calendar</a>
-            <a id="appleCalLink" class="btn-signup-sm" style="margin:0;">Apple / iOS</a>
+        <!-- Personalized Success Message (Hidden by default) -->
+        <div id="successMsg" style="display:none; color: var(--party-green); text-align: center; padding: 25px; border: 2px dashed var(--party-green); border-radius: 8px; font-weight: bold; margin-bottom: 25px;">
+            🎉 Success! You've been added to the list.
+            <div style="margin-top: 15px; color: #444; font-weight: normal; font-size: 0.9rem;">
+                <p><strong>Add your dish reminder to your calendar:</strong></p>
+                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 10px;">
+                    <a id="googleCalLink" target="_blank" class="btn-signup-sm">Google Calendar</a>
+                    <a id="appleCalLink" class="btn-signup-sm">Apple / iOS</a>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-        <p style="display: flex; align-items: center; gap: 10px;">
+
+        <p style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
             <svg id="refreshBtn" class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
             </svg>
-            <em> Refresh (Updates take ~1 min)</em>
+            <em style="font-size: 0.9rem;">Refresh (Updates take ~1 min)</em>
             
             <span class="help-container" id="helpTrigger">
                 <span class="help-text-trigger">Did your name disappear?</span>
                 <span class="help-tooltip">
                     <strong>Don't worry!</strong><br><br>
-                    It takes the server about 60 seconds to finalize new signups. If you just RSVP'd and don't see your name yet, your data is safe—just refresh the page in a minute!
+                    It takes the server about 60 seconds to process new signups. If you just RSVP'd and don't see your name, your data is safe—just refresh in a minute!
                 </span>
             </span>
         </p>
 
         <div id="potluck-list-container">
-            <p>Gathering the list from the neighborhood...</p>
+            <p>Gathering the list...</p>
         </div>
     </div>
 
-    <div id="RSVP" class="form-section">
+    <div id="RSVP" class="form-section" style="border-top: 2px solid #eee; padding-top: 50px; margin-top: 50px;">
         <h2>RSVP</h2>
-        <p>Check the list above first to see what we might still need! <a href="#WhosBringingWhat" class="btn-signup-sm">SEE WHO'S BRINGING WHAT</a></p>
+        <p><em>***To update a dish, fill this out again and add "UPDATE" before your name***</em></p>
         
         <form id="partyForm" target="hidden_iframe" onsubmit="handleOptimisticSubmit()">
             <div class="form-group">
@@ -308,79 +260,51 @@
             </div>
             <div class="form-group">
                 <label>Email or Phone#</label>
-                <small style="display:block; color:#666; margin-bottom:5px;">(Private: Only used for updates/reminders)</small>
+                <small style="display:block; color:#666; margin-bottom:5px;">(Private: Only used for party updates)</small>
                 <input type="text" id="contactIn" name="entry.474208481" required>
             </div>
-            <button type="submit" class="btn-signup" style="width:100%; margin-left:0; margin-right:0;">SUBMIT RSVP</button>
+            <button type="submit" class="btn-signup" style="width:100%; margin: 0;">SUBMIT RSVP</button>
         </form>
 
         <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { showSuccess(); }"></iframe>
-        
     </div>
 </div>
 
 <script>
-    // --- GLOBAL STATE & ELEMENTS ---
     let submitted = false;
     let userDish = "";
     let userItems = "";
     const refreshBtn = document.getElementById('refreshBtn');
     const helpTrigger = document.getElementById('helpTrigger');
 
-    // --- 1. PARALLAX SCROLL LOGIC ---
-    // Background moves at 40% speed, Logo at 15% for a depth effect
-    window.addEventListener('scroll', function() {
-        let scrollValue = window.scrollY;
-        const bg = document.getElementById('headerBg');
-        const logo = document.getElementById('headerLogo');
-        
-        if (bg) bg.style.transform = 'translateY(' + (scrollValue * 0.4) + 'px)';
-        if (logo) logo.style.transform = 'translateY(' + (scrollValue * 0.15) + 'px)';
+    // --- PARALLAX ---
+    window.addEventListener('scroll', () => {
+        let v = window.scrollY;
+        document.getElementById('headerBg').style.transform = `translateY(${v * 0.4}px)`;
+        document.getElementById('headerLogo').style.transform = `translateY(${v * 0.15}px)`;
     });
 
-    // --- 2. DYNAMIC DATA LOADING (JSON) ---
-    // Fetches the JSON file, reverses it (newest first), and builds the table
+    // --- DATA LOADING ---
     async function loadPotluckData() {
         if (refreshBtn) refreshBtn.classList.add('spinning');
-        
         try {
-            // Using Date.now() as a cache-buster to force GitHub CDN to serve fresh data
-            const response = await fetch('data/potluck.json?t=' + Date.now(), { 
-                cache: "no-store" 
+            const r = await fetch('data/potluck.json?t=' + Date.now(), { cache: "no-store" });
+            const list = await r.json();
+            let html = '<table class="potluck-table"><thead><tr><th>Name</th><th>Dish</th><th>Other Items</th></tr></thead><tbody>';
+            list.reverse().forEach(e => {
+                html += `<tr><td>${e.name || 'Anonymous'}</td><td>${e.dish || '--'}</td><td>${e.items || ''}</td></tr>`;
             });
-            
-            if (!response.ok) throw new Error('Network response was not ok');
-            const potluckList = await response.json();
-            
-            let tableHtml = '<table class="potluck-table"><thead><tr><th>Name</th><th>Dish</th><th>Other Items</th></tr></thead><tbody>';
-            
-            // Reverse the array so the most recent entries from the JSON appear at the top
-            potluckList.reverse().forEach(entry => {
-                tableHtml += `<tr>
-                    <td>${entry.name || 'Anonymous'}</td>
-                    <td>${entry.dish || '--'}</td>
-                    <td>${entry.items || ''}</td>
-                </tr>`;
-            });
-            
-            tableHtml += '</tbody></table>';
-            document.getElementById('potluck-list-container').innerHTML = tableHtml;
-            
-        } catch (error) {
-            console.error('Error loading JSON:', error);
-            document.getElementById('potluck-list-container').innerHTML = '<p>Signup list will appear here once responses roll in!</p>';
+            html += '</tbody></table>';
+            document.getElementById('potluck-list-container').innerHTML = html;
+        } catch (e) {
+            document.getElementById('potluck-list-container').innerHTML = '<p>List will appear after the first RSVP!</p>';
         } finally {
-            // End the spin animation after a slight delay for visual feedback
-            setTimeout(() => {
-                if (refreshBtn) refreshBtn.classList.remove('spinning');
-            }, 600);
+            setTimeout(() => refreshBtn.classList.remove('spinning'), 600);
         }
     }
 
-    // --- 3. OPTIMISTIC UI & FORM SUBMISSION ---
-    // Injects the row immediately so neighbors see instant results
+    // --- FORM & OPTIMISTIC UI ---
     function handleOptimisticSubmit() {
-        // Capture values
         const name = document.getElementById('nameIn').value;
         userDish = document.getElementById('dishIn').value;
         userItems = document.getElementById('itemsIn').value;
@@ -388,87 +312,52 @@
         const tbody = document.querySelector('.potluck-table tbody');
         if (tbody) {
             const row = document.createElement('tr');
-            row.className = 'flash-row'; // Triggers the blue pulsing CSS animation
+            row.className = 'flash-row';
             row.innerHTML = `<td><strong>${name}</strong><span class="new-badge">(NEW!)</span></td><td>${userDish}</td><td>${userItems}</td>`;
-            
-            // Insert at the very top of the table
             tbody.insertBefore(row, tbody.firstChild);
         }
 
-        // Set the form action and trigger the hidden iframe post
         document.getElementById('partyForm').action = "https://docs.google.com/forms/u/0/d/e/1FAIpQLScEvLf9KLkprHbCuRazjKPwx2xAo3iluoeNJQI-jtxGwejcwA/formResponse";
         submitted = true;
-        
-        // Scroll back up to the table so the user sees the "flash" update
         document.getElementById('WhosBringingWhat').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // Called by the hidden iframe's onload event
     function showSuccess() {
         document.getElementById('partyForm').style.display = 'none';
         document.getElementById('successMsg').style.display = 'block';
-        
-        // Build the calendar invites using the data they just submitted
-        generateCalendarLinks(userDish, userItems);
+        generateCalendarLinks(userDish, userItems, ""); // Updates success buttons
     }
 
-    // --- 4. CALENDAR INVITE GENERATION ---
-    function generateCalendarLinks(dish, items) {
+    // --- CALENDAR LOGIC ---
+    function generateCalendarLinks(dish, items, suffix) {
         const title = "Lamont St. Block Party";
-        const location = "Lamont St (between Brian & Garner), Eau Claire, WI";
-        const description = `Dish to bring: ${dish}\nOther items: ${items}\n\nLive List: https://itbytom.github.io/Lamont-St-Block-Party/`;
-        
-        // June 10, 2026. 5:00 PM - 8:30 PM CDT (UTC Times below)
-        const startTime = "20260610T220000Z"; 
-        const endTime = "20260611T013000Z";
+        const loc = "Lamont St (between Brian & Garner), Eau Claire, WI";
+        const dText = dish ? `Dish: ${dish}` : "Potluck Dish: TBD";
+        const iText = items ? `Items: ${items}` : "";
+        const desc = `${dText}\n${iText}\n\nLive List: https://itbytom.github.io/Lamont-St-Block-Party/`;
+        const start = "20260610T220000Z"; const end = "20260611T013000Z";
 
-        // Google Calendar
-        const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startTime}/${endTime}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
-        document.getElementById('googleCalLink').href = gCalUrl;
+        // Update Google
+        const gUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${start}/${end}&details=${encodeURIComponent(desc)}&location=${encodeURIComponent(loc)}`;
+        if(document.getElementById('googleCalLink' + suffix)) document.getElementById('googleCalLink' + suffix).href = gUrl;
 
-        // Apple/iOS (.ics)
-        const icsContent = [
-            "BEGIN:VCALENDAR",
-            "VERSION:2.0",
-            "BEGIN:VEVENT",
-            `DTSTART:${startTime}`,
-            `DTEND:${endTime}`,
-            `SUMMARY:${title}`,
-            `DESCRIPTION:${description.replace(/\n/g, "\\n")}`,
-            `LOCATION:${location}`,
-            "END:VEVENT",
-            "END:VCALENDAR"
-        ].join("\n");
-
-        const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
-        const appleLink = document.getElementById('appleCalLink');
-        appleLink.href = window.URL.createObjectURL(blob);
-        appleLink.setAttribute("download", "block-party.ics");
+        // Update Apple
+        const ics = ["BEGIN:VCALENDAR","VERSION:2.0","BEGIN:VEVENT",`DTSTART:${start}`,`DTEND:${end}`,`SUMMARY:${title}`,`DESCRIPTION:${desc.replace(/\n/g, "\\n")}`,`LOCATION:${loc}`,"END:VEVENT","END:VCALENDAR"].join("\n");
+        const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+        const aBtn = document.getElementById('appleCalLink' + suffix);
+        if(aBtn) {
+            aBtn.href = window.URL.createObjectURL(blob);
+            aBtn.setAttribute("download", "block-party.ics");
+        }
     }
 
-    // --- 5. EVENT LISTENERS & INITIALIZATION ---
-    
-    // Refresh Button Click
-    if (refreshBtn) {
-        refreshBtn.addEventListener('click', loadPotluckData);
-    }
+    // --- INITIALIZE ---
+    refreshBtn.addEventListener('click', loadPotluckData);
+    helpTrigger.addEventListener('click', (e) => { helpTrigger.classList.toggle('active'); e.stopPropagation(); });
+    document.addEventListener('click', () => helpTrigger.classList.remove('active'));
 
-    // Help Tooltip Toggle (for Mobile Tap)
-    if (helpTrigger) {
-        helpTrigger.addEventListener('click', function(e) {
-            this.classList.toggle('active');
-            e.stopPropagation();
-        });
-    }
-
-    // Close tooltip when clicking anywhere else
-    document.addEventListener('click', () => {
-        if (helpTrigger) helpTrigger.classList.remove('active');
-    });
-
-    // Run on page load
     loadPotluckData();
-
+    generateCalendarLinks("", "", "Static"); // Initialize Save the Date buttons
 </script>
 
 </body>
