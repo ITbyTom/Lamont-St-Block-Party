@@ -43,5 +43,10 @@
     "name": "Timothy Bridgemen",
     "dish": "Chocolate chip cookies ",
     "items": ""
+  },
+  {
+    "name": "Jean Doty",
+    "dish": 0,
+    "items": ""
   }
 ]
