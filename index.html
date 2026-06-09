@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- GoatCounter Tracking -->
     <script data-goatcounter="https://lamontstblockparty.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
     
     <title>Lamont St. Block Party</title>
@@ -27,6 +26,21 @@
             line-height: 1.6;
             background-color: var(--bg-light);
             overflow-x: hidden;
+        }
+
+        /* --- WEATHER ALERT BANNER --- */
+        .weather-alert {
+            background-color: var(--alert-red);
+            color: #fff;
+            text-align: center;
+            padding: 15px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 9999;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            letter-spacing: 0.5px;
         }
 
         /* --- PARALLAX HEADER --- */
@@ -73,8 +87,8 @@
             border-radius: 12px;
         }
 
-        .event-header { font-family: 'Montserrat', sans-serif; font-size: 2.4rem; font-weight: 700; margin-bottom: 5px; line-height: 1.2; }
-        .rain-date { font-size: 1.2rem; color: #666; margin-bottom: 40px; }
+        .event-header { font-family: 'Montserrat', sans-serif; font-size: 2.2rem; font-weight: 700; margin-bottom: 5px; line-height: 1.2; }
+        .rain-date { font-size: 1.2rem; color: var(--alert-red); font-weight: bold; margin-bottom: 40px; }
         .intro-text { font-size: 1.15rem; margin-bottom: 25px; }
 
         .checklist { list-style: none; padding: 0; margin: 30px 0; }
@@ -164,14 +178,18 @@
 </head>
 <body>
 
+<div class="weather-alert">
+    ⛈️ WEATHER UPDATE: The Block Party has been moved to our rain date: THURSDAY, JUNE 11TH! ⛈️
+</div>
+
 <div class="header-wrapper">
     <div class="header-bg" id="headerBg"></div>
     <div class="header-logo" id="headerLogo"></div>
 </div>
 
 <div class="container">
-    <div class="event-header">Wednesday, June 10th | 5pm-8:30pm</div>
-    <div class="rain-date">(Rain Date: Thursday, June 11th)</div>
+    <div class="event-header"><strike style="color:#999; font-size:1.8rem;">Wednesday, June 10th</strike><br> Thursday, June 11th | 5pm-8:30pm</div>
+    <div class="rain-date">NEW DATE CONFIRMED</div>
 
     <div class="intro-text">
         Join us for the Lamont St. Block Party! We’re closing the road between Brian St and Garner St for an evening of neighborhood fun.
@@ -183,11 +201,9 @@
         <li><strong>RSVP:</strong> Sign up below so we can track the spread!</li>
     </ul>
 
-    <!-- The Static Save the Date block -->
     <div style="margin: 20px 0; text-align: center; background: #f9f9f9; padding: 15px; border-radius: 8px;">
-        <p style="margin-bottom: 10px;"><strong>Save the Date:</strong></p>
+        <p style="margin-bottom: 10px;"><strong>Save the NEW Date:</strong></p>
         <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-            <!-- Changed IDs to match the LinkStatic pattern -->
             <a id="googleCalLinkStatic" target="_blank" class="btn-signup-sm">Google Calendar</a>
             <a id="appleCalLinkStatic" class="btn-signup-sm">Apple / iOS</a>
         </div>
@@ -210,11 +226,10 @@
             <a href="#RSVP" class="btn-signup-sm" style="font-size: 10px; padding: 8px 15px;">RSVP</a>
         </h2>
         
-        <!-- Personalized Success Message (Hidden by default) -->
         <div id="successMsg" style="display:none; color: var(--party-green); text-align: center; padding: 25px; border: 2px dashed var(--party-green); border-radius: 8px; font-weight: bold; margin-bottom: 25px;">
             🎉 Success! You've been added to the list.
             <div style="margin-top: 15px; color: #444; font-weight: normal; font-size: 0.9rem;">
-                <p><strong>Add your dish reminder to your calendar:</strong></p>
+                <p><strong>Add your dish reminder to your calendar (Updated for Thursday!):</strong></p>
                 <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 10px;">
                     <a id="googleCalLink" target="_blank" class="btn-signup-sm">Google Calendar</a>
                     <a id="appleCalLink" class="btn-signup-sm">Apple / iOS</a>
@@ -267,7 +282,7 @@
             <button type="submit" class="btn-signup" style="width:100%; margin: 0;">SUBMIT RSVP</button>
         </form>
 
-        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { showSuccess(); }"></iframe>
+        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(window.submitted) { showSuccess(); }"></iframe>
     </div>
 </div>
 
