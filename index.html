@@ -179,7 +179,7 @@
 <body>
 
 <div class="weather-alert">
-    ⛈️ WEATHER UPDATE: The Block Party has been moved to our rain date: THURSDAY, JUNE 11TH! ⛈️ <br /> Looks like rain again today!  <a href="weather/index.html" > Please fill out this form!  </a>
+    ⛈️ WEATHER UPDATE: The Block Party has been moved to: THURSDAY, JUNE 18th⛈️<br />This date is on for light rain or shine! If the weather becomes severe, we'll cancel this year.
 </div>
 
 <div class="header-wrapper">
@@ -188,7 +188,7 @@
 </div>
 
 <div class="container">
-    <div class="event-header"><strike style="color:#999; font-size:1.8rem;">Wednesday, June 10th</strike><br> Thursday, June 11th | 5pm-8:30pm</div>
+    <div class="event-header"><strike style="color:#999; font-size:1.8rem;">Wednesday, June 10th</strike><br> Thursday, June 18th | 5pm-8:30pm</div>
     <div class="rain-date">NEW DATE CONFIRMED</div>
 
     <div class="intro-text">
@@ -354,9 +354,10 @@
         const iText = items ? `Items: ${items}` : "";
         const desc = `${dText}\n${iText}\n\nLive List: https://itbytom.github.io/Lamont-St-Block-Party/`;
         
-        // Times in UTC (5:00 PM - 8:30 PM CDT is 22:00 - 01:30 UTC)
-        const start = "20260610T220000Z"; 
-        const end = "20260611T013000Z";
+        // UPDATED TO THURSDAY, JUNE 18TH
+        // Times in UTC (5:00 PM - 8:30 PM CDT is 22:00 - 01:30 UTC next day)
+        const start = "20260618T220000Z"; 
+        const end = "20260619T013000Z";
 
         // 1. Update Google Calendar Link
         const gUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${start}/${end}&details=${encodeURIComponent(desc)}&location=${encodeURIComponent(loc)}`;
